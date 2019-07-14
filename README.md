@@ -30,3 +30,4 @@ More details are available at https://docs.google.com/document/d/10sV36zfKDqhW0C
 
 # Updates
 1. There are no task deadlines now, so you can work at your own pace!
+2. To keep the event fair, we’ve decided that in a single pull request only 2 points will be awarded for finding out style violations rather than 2 points per style violation. However, still only the first one to find the style violations will be rewarded!
