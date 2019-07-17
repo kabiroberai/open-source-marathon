@@ -6,4 +6,4 @@ class Command(BaseCommand):
     help = 'Scrape the web'
 
     def handle(self, *args, **options):
-        crawl('https://google.com')
+        crawl('https://wikipedia.org')
