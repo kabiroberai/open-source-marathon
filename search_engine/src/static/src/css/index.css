@@ -1,50 +1,51 @@
 main {
-    height: 100vh;
+  height: 100vh;
 }
 
 img {
-    width: 20rem;
-    height: 100%;
+  width: 20rem;
+  height: 100%;
 }
 
 #search {
-    border-radius: 1rem;
-    border: none;
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.05);
-    font-weight: 600;
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.05);
+  font-weight: 600;
 }
 
-#search:hover, #search:focus {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.08);
+#search:hover,
+#search:focus {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.08);
 }
 
 #search::placeholder {
-    color: #AAA;
-    font-weight: 500;
+  color: #aaa;
+  font-weight: 500;
 }
 
 .btn-primary {
-    background-color: #665EFF;
-    border: none;
+  background-color: #665eff;
+  border: none;
 }
 
 .btn-primary:not(:disabled):hover {
-    background-color: #625ad8;
-    border: none;
+  background-color: #625ad8;
+  border: none;
 }
 
 .btn-primary:active {
-    background-color: #6058c9!important;
-    border: none;
+  background-color: #6058c9 !important;
+  border: none;
 }
 
 .btn-primary.disabled {
-    background-color: rgba(96, 88, 201, 0.7)!important;
-    border: none;
-    cursor: default;
-    opacity: 1;
+  background-color: rgba(96, 88, 201, 0.7) !important;
+  border: none;
+  cursor: default;
+  opacity: 1;
 }
 
-button[type=submit] {
-    border-radius: 1rem;
+button[type="submit"] {
+  border-radius: 1rem;
 }

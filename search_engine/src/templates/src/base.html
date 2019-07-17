@@ -2,25 +2,49 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static "src/img/favicon-16x16.png" %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static "src/img/favicon-32x32.png" %}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static "src/img/favicon-96x96.png" %}">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'src/img/favicon-16x16.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'src/img/favicon-32x32.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="{% static 'src/img/favicon-96x96.png' %}"
+    />
 
-    <link rel="stylesheet" href="{% static "src/vendor/fontawesome/css/all.min.css" %}">
-    <link rel="stylesheet" href="{% static "src/vendor/bootstrap/css/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "src/css/base.css" %}">
+    <link
+      rel="stylesheet"
+      href="{% static 'src/vendor/fontawesome/css/all.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'src/vendor/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'src/css/base.css'%}" />
 
-    <script src="{% static "src/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static 'src/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <title>{% block title %}Quarry{% endblock %}</title>
 
     {% block head %}{% endblock %}
-</head>
-<body>
+  </head>
+  <body>
     {% block body %}{% endblock %}
-</body>
+  </body>
 </html>
