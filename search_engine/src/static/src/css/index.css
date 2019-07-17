@@ -1,0 +1,43 @@
+main {
+    height: 100vh;
+}
+
+img {
+    width: 20rem;
+    height: 100%;
+}
+
+#search {
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+}
+
+#search:hover, #search:focus {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.08);
+}
+
+#search::placeholder {
+    color: #AAA;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #665EFF;
+    border-color: #665EFF;
+}
+
+.btn-primary:hover {
+    background-color: #625ad8;
+    border-color: #625ad8;
+}
+
+.btn-primary:active {
+    background-color: #6058c9 !important;
+    border-color: #6058c9!important;
+}
+
+button[type=submit] {
+    border-radius: 1rem;
+}

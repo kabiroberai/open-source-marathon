@@ -1,43 +1,38 @@
+{% extends "src/base.html" %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block head %}
+    <link rel="stylesheet" href="{% static "src/css/index.css" %}">
+{% endblock %}
 
-    <link rel="stylesheet" href="{% static "src/css/bootstrap.min.css" %}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>Quarry</title>
-</head>
-<body>
+{% block body %}
     <div class="container">
-        <div class="py-4"></div>
-        <div class="row justify-content-center">
-            <h1>Quarry</h1>
-        </div>
-        <div class="row justify-content-center">
-            <h3>The best search engine</h3>
-        </div>
-        <div class="py-2"></div>
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <form class="needs-validation" action="{% url 'search' %}" novalidate>
-                    <div class="row no-gutters">
-                        <div class="col">
-                            <input type="text" class="form-control" id="search" name="q" placeholder="What are you looking for?" required>
-                        </div>
-                        <div class="px-1"></div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
+        <main class="row">
+            <div class="col align-self-center">
+                <div class="row justify-content-center">
+                    <img id="logo" src="{% static "src/img/logo.png" %}" alt="Quarry Logo" />
+                </div>
+                <div class="py-3"></div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <form class="needs-validation" action="{% url "search" %}" novalidate>
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <input autofocus type="search" class="form-control form-control-lg" id="search" name="q" placeholder="Search" required>
+                                </div>
+                                <div class="px-2"></div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
 
-    <script src="{% static "src/js/bootstrap.bundle.min.js" %}"></script>
     <script>
         window.addEventListener('load', () => {
             [...document.getElementsByClassName('needs-validation')].forEach(form => {
@@ -50,5 +45,4 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}
