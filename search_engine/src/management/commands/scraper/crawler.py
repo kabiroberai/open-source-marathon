@@ -41,7 +41,7 @@ def should_crawl(graph):
     parsed = urlparse(url)
 
     # only parse http and https
-    if parsed.scheme not in ['http', 'https']:
+    if parsed.scheme not in {'http', 'https'}:
         return False
 
     if len(graph) >= SAME_HOST_LIMIT:
