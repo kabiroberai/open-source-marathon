@@ -7,7 +7,7 @@ from .parser import parse
 from .indexer import index
 
 
-MAX_SAME_HOST_COUNT = 3
+SAME_HOST_LIMIT = 3
 
 
 # robots.txt cache, keyed by scheme + netloc
@@ -44,11 +44,11 @@ def should_crawl(graph):
     if parsed.scheme not in ['http', 'https']:
         return False
 
-    if len(graph) >= MAX_SAME_HOST_COUNT:
+    if len(graph) >= SAME_HOST_LIMIT:
         # if the last MAX_SAME_HOST_COUNT elements were of the same host, then exit.
         # this should allow the bot to circumvent DOS prevention
         host = parsed.hostname
-        recent = graph[-MAX_SAME_HOST_COUNT:]
+        recent = graph[-SAME_HOST_LIMIT:]
         has_recent_non_same_host = False
         for link in recent:
             if urlparse(link).hostname != host:
