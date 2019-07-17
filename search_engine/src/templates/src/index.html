@@ -11,9 +11,11 @@
         <main class="row">
             <div class="col align-self-center">
                 <div class="row justify-content-center">
-                    <img id="logo" src="{% static "src/img/logo.png" %}" alt="Quarry Logo" />
+                    <label for="search">
+                        <img id="logo" src="{% static "src/img/logo.png" %}" alt="Quarry Logo" />
+                    </label>
                 </div>
-                <div class="py-3"></div>
+                <div class="py-2"></div>
                 <div class="row justify-content-center">
                     <div class="col-lg-7">
                         <form class="needs-validation" action="{% url "search" %}" novalidate>
@@ -23,7 +25,7 @@
                                 </div>
                                 <div class="px-2"></div>
                                 <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-search"></i></button>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-lg"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -35,14 +37,35 @@
 
     <script>
         window.addEventListener('load', () => {
+            const search = document.getElementById('search');
+            const submit = document.getElementById('submit');
+
+            function canSubmit() {
+                return search.value.trim() !== '';
+            }
+
+            function updateSubmitButton() {
+                if (canSubmit()) {
+                    submit.classList.remove('disabled');
+                } else {
+                    submit.classList.add('disabled');
+                }
+            }
+
             [...document.getElementsByClassName('needs-validation')].forEach(form => {
                 form.addEventListener('submit', e => {
-                    if (!form.checkValidity()) {
+                    if (!form.checkValidity() || !canSubmit()) {
                         e.preventDefault();
                         e.stopPropagation();
                     }
                 });
             });
+
+            search.addEventListener('keyup', () => {
+                updateSubmitButton();
+            });
+
+            updateSubmitButton();
         });
     </script>
 {% endblock %}
