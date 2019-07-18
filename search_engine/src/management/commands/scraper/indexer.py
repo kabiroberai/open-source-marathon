@@ -1,5 +1,33 @@
-from src.models import Entry, SearchTerm
+from src.models import Entry, SearchTerm, Lemma, Synset
 from json import dumps
+from nltk import wordpunct_tokenize, pos_tag, WordNetLemmatizer
+from nltk.corpus import wordnet as wn
+
+
+def tag_to_pos(tag):
+    return {
+        'J': wn.ADJ,
+        'N': wn.NOUN,
+        'V': wn.VERB,
+        'R': wn.ADV,
+    }.get(tag.upper()[0], wn.NOUN)
+
+
+lemmatizer = WordNetLemmatizer()
+
+
+# we shouldn't always save syn, because that could lead to infinite recursion
+def get_or_create_term(word, pos):
+    term, _ = SearchTerm.objects.get_or_create(term=word, pos=pos)
+
+    wn_lemma_word = lemmatizer.lemmatize(word, pos)
+    wn_lemmas = wn.lemmas(wn_lemma_word, pos)
+    for wn_lemma in wn_lemmas:
+        synset, _ = Synset.objects.get_or_create(name=wn_lemma.synset().name())
+        lemma, _ = Lemma.objects.get_or_create(name=wn_lemma.name(), defaults={'synset': synset})
+        term.lemmas.add(lemma)
+
+    return term
 
 
 def index(parsed, graph):
@@ -12,14 +40,10 @@ def index(parsed, graph):
         open_graph=dumps(parsed.open_graph)
     )
     entry.save()
-    # at present we just store the raw word, but in a later task we'll strip punctuation etc
-    # and also store concepts
-    word_set = set(filter(lambda w: w.strip() != '', parsed.text.split(' ')))
-    for word in word_set:
-        try:
-            term = SearchTerm.objects.get(pk=word)
-        except SearchTerm.DoesNotExist:
-            term = SearchTerm(term=word)
-            term.save()
-        term.entries.add(entry)
 
+    words = wordpunct_tokenize(parsed.text)
+    tagged = pos_tag(words)
+    alpha_words = [(w.lower(), tag_to_pos(t)) for (w, t) in tagged if w.isalpha()]
+    for (word, pos) in alpha_words:
+        term = get_or_create_term(word, pos)
+        term.entries.add(entry)

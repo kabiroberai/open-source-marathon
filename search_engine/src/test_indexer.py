@@ -26,11 +26,11 @@ class IndexerTestCase(TestCase):
         # make sure that the white space isn't considered a term
         self.assertEqual(len(SearchTerm.objects.all()), 2)
         # ensure correct keys
-        SearchTerm.objects.get(pk='hello')
-        SearchTerm.objects.get(pk='world')
+        self.assertEqual(len(SearchTerm.objects.filter(term='hello')), 1)
+        self.assertEqual(len(SearchTerm.objects.filter(term='world')), 1)
 
     def test_search_term_relationship(self):
-        search_term = SearchTerm.objects.get(pk='hello')
+        search_term = SearchTerm.objects.filter(term='hello')[0]
         entries = search_term.entries.all()
         self.assertEqual(len(entries), 1)
         self.assertEqual(entries[0].url, self.url)
