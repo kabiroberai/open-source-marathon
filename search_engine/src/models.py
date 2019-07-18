@@ -2,10 +2,16 @@ from django.db import models
 from json import loads
 
 
-class Entry(models.Model):
+class Link(models.Model):
     url = models.TextField(primary_key=True)
-    shouldFollow = models.BooleanField()
-    title = models.TextField()
+    is_top_level = models.BooleanField(default=False, db_index=True)
+    referrers = models.ManyToManyField('self')  # sites that link to this one
+    rank = models.FloatField(default=0)  # more accurate than `float`
+
+
+class Entry(models.Model):
+    link = models.OneToOneField(Link, on_delete=models.CASCADE, primary_key=True)  # the entry's own link
+    title = models.TextField(db_index=True)
     text = models.TextField()
     open_graph = models.TextField()  # as json
 
@@ -13,7 +19,7 @@ class Entry(models.Model):
         return loads(self.open_graph)
 
     def __str__(self):
-        return self.url
+        return self.link.url
 
 
 # a "concept"

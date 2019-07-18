@@ -24,8 +24,9 @@ class IndexerTestCase(TestCase):
 
     def test_search_terms_are_correct(self):
         # make sure that the white space isn't considered a term
-        self.assertEqual(len(SearchTerm.objects.all()), 2)
+        self.assertEqual(len(SearchTerm.objects.all()), 3)
         # ensure correct keys
+        self.assertEqual(len(SearchTerm.objects.filter(term='google')), 1)
         self.assertEqual(len(SearchTerm.objects.filter(term='hello')), 1)
         self.assertEqual(len(SearchTerm.objects.filter(term='world')), 1)
 
@@ -33,7 +34,7 @@ class IndexerTestCase(TestCase):
         search_term = SearchTerm.objects.filter(term='hello')[0]
         entries = search_term.entries.all()
         self.assertEqual(len(entries), 1)
-        self.assertEqual(entries[0].url, self.url)
+        self.assertEqual(entries[0].link.url, self.url)
 
     def test_open_graph(self):
         entry = Entry.objects.get(pk=self.url)

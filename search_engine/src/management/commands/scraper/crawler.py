@@ -3,21 +3,26 @@ from urllib.parse import urlparse, urlunparse
 from urllib.error import HTTPError
 from urllib.robotparser import RobotFileParser
 from time import sleep
+
 from .parser import parse
 from .indexer import index
+from .ranking_engine import calculate_ranks
 
 
+# the maximum number of websites to crawl from the same host at one time
 SAME_HOST_LIMIT = 3
+# the maximum number of sites to crawl
+CRAWL_LIMIT = 3
 
-
+# the number of sites already crawled
+crawled = 0
 # robots.txt cache, keyed by scheme + netloc
 site_robots = {}
 
 
 # order the links
 def order_links(links, graph):
-    url = graph[-1]
-    # links.sort(key=lambda link: urlparse(link).hostname == urlparse(url).hostname)
+    pass
 
 
 def parse_robots(parsed_url):
@@ -32,6 +37,11 @@ def parse_robots(parsed_url):
 
 
 def should_crawl(graph):
+    global crawled
+
+    if crawled >= CRAWL_LIMIT:
+        return False
+
     url = graph[-1]
 
     # if we've seen this link before, then don't re-crawl
@@ -82,6 +92,8 @@ def should_crawl(graph):
             print(f"sleeping for { sleep_time } sec")
             sleep(crawl_delay)
 
+    crawled += 1
+
     return True
 
 
@@ -124,6 +136,7 @@ def _crawl(graph):
 
 def crawl(url):
     _crawl([url])
+    calculate_ranks()
 
 
 def make_request(url):
