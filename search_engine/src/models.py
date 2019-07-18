@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
+from json import loads
 
 
 class Entry(models.Model):
@@ -10,6 +8,9 @@ class Entry(models.Model):
     title = models.TextField()
     text = models.TextField()
     open_graph = models.TextField()  # as json
+
+    def get_open_graph(self):
+        return loads(self.open_graph)
 
     def __str__(self):
         return self.url

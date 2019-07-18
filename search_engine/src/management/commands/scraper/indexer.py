@@ -14,7 +14,8 @@ def index(parsed, graph):
     entry.save()
     # at present we just store the raw word, but in a later task we'll strip punctuation etc
     # and also store concepts
-    for word in parsed.word_set:
+    word_set = set(filter(lambda w: w.strip() != '', parsed.text.split(' ')))
+    for word in word_set:
         try:
             term = SearchTerm.objects.get(pk=word)
         except SearchTerm.DoesNotExist:

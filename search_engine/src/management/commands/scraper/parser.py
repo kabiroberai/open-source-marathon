@@ -74,7 +74,6 @@ class _Parser(HTMLParser):
             self.data.title = data
         elif tag not in {'script', 'style'}:
             self.data.text = f"{ self.data.text } { data }".strip()
-            self.data.word_set.update(filter(lambda w: w.strip() != '', data.split(' ')))
 
 
 def parse(text, url):
